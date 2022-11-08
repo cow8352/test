@@ -9,6 +9,14 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 // var_dump($rows);
 // exit;
 
+if(isset($_GET["search"])){
+  $search=$_GET["search"];
+  $sql="SELECT * FROM product2 WHERE name LIKE '%$search%' AND valid=1 ORDER BY id DESC";
+  $result=$conn->query($sql);
+  $userCount=$result->num_rows;
+
+}else{
+
   if(isset($_GET["page"])){
     $page=$_GET["page"];
   }else{
@@ -29,11 +37,9 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 //計算頁數
 $totalPage=ceil($userCount/$per_page);  //無條件進位
 
-
+}
 
 $rows=$result->fetch_all(MYSQLI_ASSOC);  //關聯式陣列
-
-
 
 
 // var_dump($userCount);
@@ -69,24 +75,27 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);  //關聯式陣列
 </head>
 
 <body>
-<div class="py-2"> 
-        共 <?=$userCount?> 人
-    </div>
+
   <div class="container">
     <div class="py-2">
-      <form action="users.php" method="get">
+      <form action="product-list2.php" method="get">
         <div class="input-group">
           <input type="text" class="form-control" name="search">
           <button type="submit" class="btn btn-secondary">搜尋</button>
         </div>
       </form>
     </div>
+
     <?php if(isset($_GET["search"])): ?>
       <div class="py-2">
-        <a class="btn btn-secondary" href="users.php">回使用者列表</a>
+        <a class="btn btn-secondary" href="product-list2.php">回列表</a>
       </div>
       <h1><?=$_GET["search"]?>的搜尋結果</h1>
-      <?php endif; ?>
+    <?php endif; ?>
+
+      <div class="py-2 text-end"> 
+        共 <?=$userCount?> 間
+      </div>
     <div class="row g-3">
       <?php foreach ($rows as $exhibition) : ?>
         <div class="col-lg-3 col-md-6">
