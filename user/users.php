@@ -77,7 +77,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);  //關聯式陣列
 
     <?php if(isset($_GET["search"])): ?>
       <div class="py-2">
-        <a class="btn btn-secondary" href="users.php">回使用者列表</a>
+        <a class="btn btn-secondary" href="users.php">回列表</a>
       </div>
       <h1><?=$_GET["search"]?>的搜尋結果</h1>
     <?php endif; ?>
